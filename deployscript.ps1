@@ -113,6 +113,10 @@ Start-Sleep -Seconds 30
 $EXTERNAL_IP= kubectl get service  springaks -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 echo $EXTERNAL_IP
 
+# swagger endpoint. Can put this in browser
+$SWAGGERENDPOINT= 'http://' + $EXTERNAL_IP + '/swagger-ui/index.html'
+echo $SWAGGERENDPOINT
+
 # build out the rest endpoint
 $RESTENDPOINT = 'http://' + $EXTERNAL_IP + '/api/v1/employees'
 echo $RESTENDPOINT
@@ -154,6 +158,8 @@ $response | ConvertTo-Json
 # get employee 2000 that likely does not exist so should give exception
 $response =Invoke-RestMethod -Uri $RESTENDPOINT/2000 -Method GET
 
+
+# can check at swagger endpoint at $EXTERNAL_IP/swagger-ui/index.html
 
 #$body = "{
 #`n    `"firstName`" : `"Lional`",
