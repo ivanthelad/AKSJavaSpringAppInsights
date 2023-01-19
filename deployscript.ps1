@@ -124,6 +124,9 @@ echo $RESTENDPOINT
 # make a warmup call to this
 $response =Invoke-RestMethod -Uri $RESTENDPOINT -Method GET
 
+# goto the app insights live metrics before you run this.. and should see the traffic
+# check out the the other app insights views. eg the map
+
 # create 10 random records
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("conte", "application/json")
