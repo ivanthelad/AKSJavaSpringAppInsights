@@ -1,0 +1,51 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: springaks 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springaks
+  template:
+    metadata:
+      labels:
+        app: springaks 
+    spec:
+      containers:
+        - name: springaks 
+          image: REPLACEIMAGE
+          env:
+          - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: javasecrets
+                key: APPLICATIONINSIGHTS_CONNECTION_STRING
+          - name: SPRING_JMS_SERVICEBUS_CONNECTION-STRING
+            valueFrom:
+              secretKeyRef:
+                name: javasecrets
+                key: SPRING_JMS_SERVICEBUS_CONNECTION-STRING
+          - name: QUEUENAME
+            valueFrom:
+              secretKeyRef:
+                name: javasecrets
+                key: QUEUENAME
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+              secretKeyRef:
+                name: javasecrets
+                key: SPRING_DATASOURCE_URL
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: javasecrets
+                key: SPRING_DATASOURCE_USERNAME
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: javasecrets
+                key: SPRING_DATASOURCE_PASSWORD
+          
+          ports:
+          - containerPort: 80
