@@ -162,8 +162,8 @@ $response | ConvertTo-Json
 $response =Invoke-RestMethod -Uri $RESTENDPOINT/2000 -Method GET
 
 
-# can check at swagger endpoint at $EXTERNAL_IP/swagger-ui/index.html
 
+# just a different way of setting up body. Should not be needed
 #$body = "{
 #`n    `"firstName`" : `"Lional`",
 #`n    `"lastName`" : `"Messi`",
