@@ -1,5 +1,5 @@
-$PREFIX='ahms'
-$SUFFIX='010'
+$PREFIX='imk'
+$SUFFIX='019'
 $RGNAME='aksappinsightdemo' + $SUFFIX + '-rg'
 $LOCATION='westeurope'
 $AKSCLUSTERNAME= $PREFIX+ 'testaks' + $SUFFIX
@@ -52,8 +52,10 @@ az postgres server firewall-rule create --resource-group $RGNAME --server $PGSER
 az postgres db create -g $RGNAME -s $PGSERVER -n $DBNAME
 
 # extract connection string.. needed for setting up kubernetes deployment
-$PGCONNECTIONSTRING= az postgres show-connection-string --admin-password $PGPASSWORD --admin-user $PGADMIN --database-name $DBNAME --server-name $PGSERVER --query connectionStrings.jdbc -o tsv
+## removed as has a dep on pg-up
+#$PGCONNECTIONSTRING= az postgres show-connection-string --admin-password $PGPASSWORD --admin-user $PGADMIN --database-name $DBNAME --server-name $PGSERVER --query connectionStrings.jdbc -o tsv
 echo $PGCONNECTIONSTRING
+$PGCONNECTIONSTRING="jdbc:postgresql://$PGSERVER.postgres.database.azure.com:5432/${DBNAME}?user=${PGADMIN}@$PGSERVER&password=$PGPASSWORD&sslmode=require"
 
 # create service bus - Basic should be fine for demo
 az servicebus namespace create --resource-group $RGNAME --name $SBNAMESPACE --location $LOCATION --sku Basic
@@ -66,8 +68,9 @@ echo $SBCONNECTIONSTRING
 
 # build the java code. assumes you have all relevant java dependencies on local machine
 cd javacode
-mvn clean
-mvn package
+# no need to build as dokcer multistage build will be done on acr registry 
+#mvn clean
+#mvn package
 
 # create the docker container.. Let azure container registry do all the work.
 az acr build --registry $ACRNAME -g $RGNAME --image $IMAGENAME .

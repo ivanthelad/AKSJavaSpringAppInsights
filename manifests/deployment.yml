@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: springaks 
-          image: ahmstestacr010.azurecr.io/javaaksdemo:v1
+          image: imktestacr019.azurecr.io/javaaksdemo:v1
           env:
           - name: APPLICATIONINSIGHTS_CONNECTION_STRING
             valueFrom:

@@ -29,6 +29,7 @@ import springpgaks.springpgaks.exception.ResourceNotFoundException;
 import springpgaks.springpgaks.model.Employee;
 import springpgaks.springpgaks.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Value;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -91,6 +92,7 @@ public class EmployeeController  {
     }
 
     @DeleteMapping("/employees/{id}")
+    @WithSpan(value = "DeletingEmployee")
     public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
          throws ResourceNotFoundException {
         Employee employee = employeeRepository.findById(employeeId)
@@ -101,4 +103,5 @@ public class EmployeeController  {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+    
 }

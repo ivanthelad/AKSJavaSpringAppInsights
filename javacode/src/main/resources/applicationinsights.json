@@ -1,0 +1,107 @@
+{
+        "sampling": {
+      "percentage": 100
+    },
+    "jmxMetrics": [      {
+      "name": "Demo - GC Thread Count",
+      "objectName": "java.lang:type=GarbageCollector,name=PS MarkSweep",
+      "attribute": "LastGcInfo.GcThreadCount"
+    },
+      {
+        "name": "Demo - GC Collection Count",
+        "objectName": "java.lang:type=GarbageCollector,name=PS MarkSweep",
+        "attribute": "CollectionCount"
+      },
+      {
+        "name": "Demo - Thread Count",
+        "objectName": "java.lang:type=Threading",
+        "attribute": "ThreadCount"
+      }
+    ],
+    "customDimensions": {
+    },
+    "instrumentation": {
+      "logging": {
+        "level": "INFO"
+      },
+      "micrometer": {
+        "enabled": true
+      },
+      "azureSdk": {
+        "enabled": true
+      },
+      "cassandra": {
+        "enabled": false
+      },
+      "jdbc": {
+        "enabled": true
+      },
+      "jms": {
+        "enabled": true
+      },
+      "kafka": {
+        "enabled": false
+      },
+   
+      "mongo": {
+        "enabled": false
+      },
+      "quartz": {
+        "enabled": false
+      },
+      "rabbitmq": {
+        "enabled": false
+      },
+      "redis": {
+        "enabled": false
+      },
+      "springScheduling": {
+        "enabled": false
+      }
+    },
+    "proxy": {
+    },
+    "preview": {
+        "captureControllerSpans": true,
+        "captureLogbackMarker":  true,
+        "captureLog4jMarker":  true,
+        "captureLogbackCodeAttributes": true,
+       "instrumentation": {
+        "akka": {
+          "enabled": true
+        },
+        "apacheCamel": {
+          "enabled": true
+        },
+        "grizzly": {
+          "enabled": true
+        },
+        "play": {
+          "enabled": true
+        },
+        "springIntegration": {
+          "enabled": true
+        },
+        "vertx": {
+          "enabled": true
+        }
+      },
+      "profiler" : {
+        "enabled" : true,
+        "cpuTriggeredSettings": "profile-without-env-data",
+        "memoryTriggeredSettings": "profile-without-env-data",
+        "manualTriggeredSettings": "profile-without-env-data"
+      },
+      "processors": [
+      ]
+    },
+    "selfDiagnostics": {
+      "destination": "file+console",
+      "level": "INFO",
+      "file": {
+        "path": "applicationinsights.log",
+        "maxSizeMb": 5,
+        "maxHistory": 1
+      }
+    }
+  }
